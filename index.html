@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#121212">
+    <title>YES / NO</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Header Logo -->
+    <header id="top-bar">
+        <div class="header-left">
+            <button id="shop-btn" aria-label="Boutique">
+                <div class="energy-indicator">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="energy-icon">
+                        <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" fill="currentColor" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <span id="energy-count">10</span>
+                    <span id="home-regen-timer" class="hidden">--:--</span>
+                </div>
+            </button> <!-- Shop Trigger -->
+        </div> <!-- Spacer -->
+        <div class="logo">
+            <svg width="40" height="40" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg"
+                style="pointer-events: none;">
+                <rect width="54" height="54" rx="5" fill="#333333" />
+                <path
+                    d="M16.0279 38.7334C15.5826 38.7334 15.1856 38.6963 14.8368 38.622C14.488 38.5553 14.2468 38.4885 14.1132 38.4217L14.7811 36.1062C15.4193 36.2695 15.9834 36.3289 16.4732 36.2843C16.963 36.2398 17.3971 36.0209 17.7756 35.6275C18.1615 35.2416 18.514 34.6145 18.8332 33.7462L19.323 32.4104L13 15.2226H15.8498L20.5697 28.8482H20.7479L25.4678 15.2226H28.3176L21.0595 34.8149C20.733 35.698 20.3285 36.429 19.8462 37.0079C19.3638 37.5942 18.8035 38.0283 18.1652 38.3104C17.5344 38.5924 16.822 38.7334 16.0279 38.7334Z"
+                    fill="white" />
+                <path
+                    d="M31.0495 22.0354V32.3214H28.4224V15.2226H30.9605V17.8943H31.1831C31.5838 17.026 32.1924 16.3284 33.0087 15.8015C33.8251 15.2672 34.8789 15 36.1702 15C37.3279 15 38.341 15.2375 39.2092 15.7124C40.0775 16.18 40.7529 16.8924 41.2353 17.8498C41.7177 18.7997 41.9588 20.002 41.9588 21.4565V32.3214H39.3317V21.6347C39.3317 20.2914 38.9829 19.245 38.2853 18.4954C37.5877 17.7385 36.6303 17.36 35.4132 17.36C34.5746 17.36 33.8251 17.5418 33.1646 17.9054C32.5115 18.2691 31.9957 18.7997 31.6172 19.4973C31.2388 20.1949 31.0495 21.041 31.0495 22.0354Z"
+                    fill="white" />
+                <path
+                    d="M41.4382 37.8904C41.1269 37.4735 39.3075 36.0098 29.1028 36C29.0475 36 29 36.0448 29 36.1V37.99C29 37.9955 29.0045 38 29.01 38H41.3719C41.437 38 41.4771 37.9425 41.4382 37.8904Z"
+                    fill="white" stroke="white" />
+            </svg>
+        </div>
+        <div class="header-right">
+            <button id="lang-btn" aria-label="Changer de langue">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="2" y1="12" x2="22" y2="12"></line>
+                    <path
+                        d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
+                    </path>
+                </svg>
+                <span id="lang-indicator" style="font-size: 0.7rem; font-weight: 700; margin-left: 4px;">FR</span>
+            </button>
+
+            <div class="divider-vertical"></div>
+
+            <button id="history-btn" aria-label="Historique">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 8V12L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2" />
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <main id="app-container">
+        <!-- Zone de Saisie Centrale -->
+        <div id="center-stage">
+            <div class="input-container">
+                <input type="text" id="question-input" placeholder="Posez votre question..." autocomplete="off">
+                <button id="explicit-send-btn" aria-label="Ask Oracle">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Le Switch de Résultat (Footer/Bottom) -->
+        <div id="bottom-control">
+            <div id="oracle-switch" class="switch-container">
+                <div class="switch-side side-yes" data-value="YES">YES</div>
+                <div class="divider"></div>
+                <div class="switch-side side-no" data-value="NO">NO</div>
+
+                <!-- Effet de Scan/Lumière qui se balade -->
+                <div class="scan-line"></div>
+            </div>
+
+            <p class="instruction-hint" id="hint-text">Appuyez sur Entrée pour décider</p>
+        </div>
+    </main>
+
+    <!-- Modal Historique -->
+    <div id="history-modal" class="hidden" aria-hidden="true">
+        <div class="modal-content">
+            <div class="modal-handle"></div> <!-- Handle for sheet look -->
+            <div class="modal-header">
+                <h2 id="modal-title">Historique</h2>
+                <button id="close-history-btn" aria-label="Fermer">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </button>
+            </div>
+            <div id="history-list-container">
+                <!-- Les items seront injectés ici par JS -->
+                <p class="empty-state" id="empty-history-msg">Aucune question pour le moment.</p>
+            </div>
+            <div class="modal-footer">
+                <button id="clear-history-btn">Effacer tout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Boutique -->
+    <div id="shop-modal" class="hidden" aria-hidden="true">
+        <div class="modal-content shop-content">
+            <div class="modal-header">
+                <h2>Boutique Oracle</h2>
+                <button id="close-shop-btn" aria-label="Fermer">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 6L6 18M6 6L18 18" />
+                    </svg>
+                </button>
+            </div>
+
+            <div class="shop-body">
+                <div class="shop-hero">
+                    <div class="current-balance">
+                        <span id="shop-balance">10</span>
+                        <small>Jetons</small>
+                    </div>
+                    <div id="next-regen-timer" class="regen-timer">
+                        <small>Prochaine recharge dans</small>
+                        <span id="timer-display">--:--</span>
+                    </div>
+                </div>
+
+                <div class="products-list">
+                    <!-- Produit 1: Refill -->
+                    <div class="product-card" id="prod-refill">
+                        <div class="prod-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="24" viewBox="0 0 24 24"
+                                fill="#fff">
+                                <g clip-path="url(#clip0_4418_8344)">
+                                    <path
+                                        d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM15.53 13.23L10.35 16.82C9.59 17.35 9.15 17.04 9.37 16.15L10.32 12.31L8.67 11.9C7.92 11.72 7.83 11.2 8.46 10.76L13.64 7.17C14.4 6.64 14.84 6.95 14.62 7.84L13.67 11.68L15.32 12.09C16.07 12.28 16.16 12.79 15.53 13.23Z"
+                                        fill="white" style="fill: var(--fillg);" />
+                                </g>
+                                <defs>
+                                    <clipPath id="clip0_4418_8344">
+                                        <rect width="32" height="32" fill="white" />
+                                    </clipPath>
+                                </defs>
+                            </svg>
+                        </div>
+                        <div class="prod-info">
+                            <h3>Recharge Rapide</h3>
+                            <p>+50 Jetons instantanés</p>
+                        </div>
+                        <button class="buy-btn" data-id="energy_refill_50">0,99 €</button>
+                    </div>
+
+                    <!-- Produit 2: Premium -->
+                    <div class="product-card premium" id="prod-premium">
+                        <div class="prod-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none">
+                                <g clip-path="url(#clip0_4418_6233)">
+                                    <path
+                                        d="M10.1802 9.31921C9.36024 8.18921 8.05025 7.44922 6.54025 7.44922C4.03025 7.44922 1.99023 9.48921 1.99023 11.9992C1.99023 14.5092 4.03025 16.5492 6.54025 16.5492C8.23025 16.5492 9.80026 15.6592 10.6703 14.2092L12.0002 11.9992L13.3203 9.78918C14.1903 8.33918 15.7603 7.44922 17.4503 7.44922C19.9603 7.44922 22.0002 9.48921 22.0002 11.9992C22.0002 14.5092 19.9603 16.5492 17.4503 16.5492C15.9503 16.5492 14.6402 15.8092 13.8102 14.6792"
+                                        stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                </g>
+                                <defs>
+                                    <clipPath id="clip0_4418_6233">
+                                        <rect width="24" height="24" fill="white" />
+                                    </clipPath>
+                                </defs>
+                            </svg>
+                        </div>
+                        <div class="prod-info">
+                            <h3>Pass Illimité</h3>
+                            <p>Énergie infinie à vie</p>
+                        </div>
+                        <button class="buy-btn" data-id="premium_unlock_lifetime">4,99 €</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button id="restore-btn" class="text-link">Restaurer les achats</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
