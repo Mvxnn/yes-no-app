@@ -462,6 +462,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const shopBalance = document.getElementById('shop-balance');
     const restoreBtn = document.getElementById('restore-btn');
 
+    // Energy Alert Modal Elements
+    const energyAlertModal = document.getElementById('energy-alert-modal');
+    const energyAlertCancel = document.getElementById('energy-alert-cancel');
+    const energyAlertConfirm = document.getElementById('energy-alert-confirm');
+    const energyAlertTitle = document.getElementById('energy-alert-title');
+    const energyAlertMessage = document.getElementById('energy-alert-message');
+
     function openShop() {
         console.log('openShop() called');
         if (shopModal) {
@@ -548,11 +555,8 @@ document.addEventListener('DOMContentLoaded', () => {
     async function decideLimit() {
         // Energy Check
         if (!energyManager.consume()) {
-            // Show "Empty Energy" Popup
-            const t = translations[currentLang];
-            if (confirm(t.oracleTired)) {
-                openShop();
-            }
+            // Show Custom Energy Alert Modal
+            showEnergyAlert();
             return;
         }
 
@@ -586,8 +590,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (rawDecision === 'YES') {
             switchEl.classList.add('active-YES');
+            playSound('YES');
         } else {
             switchEl.classList.add('active-NO');
+            playSound('NO');
         }
 
         // Save
@@ -613,5 +619,77 @@ document.addEventListener('DOMContentLoaded', () => {
         const div = document.createElement('div');
         div.textContent = text;
         return div.innerHTML;
+    }
+
+    // --- Energy Alert Modal Logic ---
+    function showEnergyAlert() {
+        const t = translations[currentLang];
+
+        // Update modal text
+        if (energyAlertTitle) {
+            // Split the oracleTired message into title and message parts
+            const parts = t.oracleTired.split('.');
+            energyAlertTitle.textContent = parts[0];
+            if (energyAlertMessage && parts.length > 1) {
+                energyAlertMessage.textContent = parts.slice(1).join('.').trim();
+            }
+        }
+
+        // Update button text
+        if (energyAlertCancel) {
+            energyAlertCancel.textContent = currentLang === 'fr' ? 'Annuler' : currentLang === 'es' ? 'Cancelar' : 'Cancel';
+        }
+        if (energyAlertConfirm) {
+            energyAlertConfirm.textContent = currentLang === 'fr' ? 'Ouvrir la boutique' : currentLang === 'es' ? 'Abrir tienda' : 'Open Shop';
+        }
+
+        // Show modal
+        if (energyAlertModal) {
+            energyAlertModal.classList.remove('hidden');
+        }
+    }
+
+    function closeEnergyAlert() {
+        if (energyAlertModal) {
+            energyAlertModal.classList.add('hidden');
+        }
+    }
+
+    // Energy Alert Event Listeners
+    if (energyAlertCancel) {
+        energyAlertCancel.addEventListener('click', closeEnergyAlert);
+    }
+
+    if (energyAlertConfirm) {
+        energyAlertConfirm.addEventListener('click', () => {
+            closeEnergyAlert();
+            openShop();
+        });
+    }
+
+    if (energyAlertModal) {
+        energyAlertModal.addEventListener('click', (e) => {
+            if (e.target === energyAlertModal) {
+                closeEnergyAlert();
+            }
+        });
+    }
+
+    // --- Sound Logic ---
+    function playSound(type) {
+        const audio = new Audio();
+        // Since we are in subfolder locally it might be just 'sounds/...'
+        // But let's use relative path. 
+        if (type === 'YES') {
+            audio.src = 'sounds/yes.mp3';
+        } else if (type === 'NO') {
+            audio.src = 'sounds/no.mp3';
+        }
+
+        audio.volume = 0.5;
+
+        audio.play().catch(err => {
+            console.warn('Audio play failed:', err);
+        });
     }
 });

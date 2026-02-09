@@ -202,6 +202,26 @@
         </div>
     </div>
 
+    <!-- Modal Alerte Énergie -->
+    <div id="energy-alert-modal" class="hidden" aria-hidden="true">
+        <div class="modal-content energy-alert-content">
+            <div class="energy-alert-header">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" class="energy-alert-icon">
+                    <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" fill="#FDD835" stroke="#FDD835" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </div>
+            <div class="energy-alert-body">
+                <h3 id="energy-alert-title">L'Oracle est fatigué</h3>
+                <p id="energy-alert-message">Vous n'avez plus d'énergie. Ouvrir la boutique pour recharger ?</p>
+            </div>
+            <div class="energy-alert-actions">
+                <button id="energy-alert-cancel" class="energy-btn energy-btn-secondary">Annuler</button>
+                <button id="energy-alert-confirm" class="energy-btn energy-btn-primary">Ouvrir la boutique</button>
+            </div>
+        </div>
+    </div>
+
     <script src="app.js"></script>
 </body>
 
