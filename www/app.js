@@ -35,10 +35,10 @@ document.addEventListener('DOMContentLoaded', () => {
             hint: "Appuyez sur Entrée pour décider",
             langName: "FR",
             // Shop Modal
-            shopTitle: "Boutique Oracle ⚡",
+            shopTitle: "Boutique Oracle",
             tokens: "Jetons",
             nextRegenIn: "Prochaine recharge dans",
-            full: "Plein ⚡",
+            full: "Plein",
             productRefillTitle: "Recharge Rapide",
             productRefillDesc: "+50 Jetons instantanés",
             productPremiumTitle: "Pass Illimité",
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
             restorePurchases: "Restaurer les achats",
             // Alerts
             oracleTired: "L'Oracle est fatigué (0 Énergie). Ouvrir la boutique ?",
-            purchaseRefill: "Paiement Simulé : +50 Jetons ! ⚡",
+            purchaseRefill: "Paiement Simulé : +50 Jetons !",
             purchasePremium: "Paiement Simulé : Mode Premium Activé ! ♾️",
             noPurchases: "Aucun achat trouvé sur ce compte simulé.",
             restoreSuccess: "Simulation : Compte réinitialisé (10 Jetons).",
@@ -63,10 +63,10 @@ document.addEventListener('DOMContentLoaded', () => {
             hint: "Press Enter to decide",
             langName: "EN",
             // Shop Modal
-            shopTitle: "Oracle Shop ⚡",
+            shopTitle: "Oracle Shop",
             tokens: "Tokens",
             nextRegenIn: "Next recharge in",
-            full: "Full ⚡",
+            full: "Full",
             productRefillTitle: "Quick Refill",
             productRefillDesc: "+50 Instant Tokens",
             productPremiumTitle: "Unlimited Pass",
@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
             restorePurchases: "Restore Purchases",
             // Alerts
             oracleTired: "The Oracle is tired (0 Energy). Open shop?",
-            purchaseRefill: "Mock Payment: +50 Tokens! ⚡",
+            purchaseRefill: "Mock Payment: +50 Tokens!",
             purchasePremium: "Mock Payment: Premium Mode Activated! ♾️",
             noPurchases: "No purchases found on this demo account.",
             restoreSuccess: "Simulation: Account reset (10 Tokens).",
@@ -91,10 +91,10 @@ document.addEventListener('DOMContentLoaded', () => {
             hint: "Presiona Enter para decidir",
             langName: "ES",
             // Shop Modal
-            shopTitle: "Tienda Oráculo ⚡",
+            shopTitle: "Tienda Oráculo",
             tokens: "Fichas",
             nextRegenIn: "Próxima recarga en",
-            full: "Lleno ⚡",
+            full: "Lleno",
             productRefillTitle: "Recarga Rápida",
             productRefillDesc: "+50 Fichas instantáneas",
             productPremiumTitle: "Pase Ilimitado",
@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
             restorePurchases: "Restaurar Compras",
             // Alerts
             oracleTired: "El Oráculo está cansado (0 Energía). ¿Abrir tienda?",
-            purchaseRefill: "Pago Simulado: ¡+50 Fichas! ⚡",
+            purchaseRefill: "Pago Simulado: ¡+50 Fichas!",
             purchasePremium: "Pago Simulado: ¡Modo Premium Activado! ♾️",
             noPurchases: "No se encontraron compras en esta cuenta demo.",
             restoreSuccess: "Simulación: Cuenta reiniciada (10 Fichas).",
@@ -172,12 +172,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Interaction Input ---
     if (input) {
+        // Auto-resize textarea
+        function autoResize() {
+            input.style.height = 'auto';
+            input.style.height = input.scrollHeight + 'px';
+        }
+
         input.addEventListener('input', () => {
+            autoResize();
             updateUIState();
         });
 
         input.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
                 if (!isProcessing && input.value.trim().length > 0) {
                     decideLimit();
                 }
@@ -396,7 +404,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // If full energy, show "Full" or hide home timer
         if (energyManager.data.energy >= energyManager.maxEnergy) {
-            if (timerDisplay) timerDisplay.textContent = "Plein ⚡";
+            if (timerDisplay) timerDisplay.textContent = translations[currentLang].full;
             if (timerContainer) timerContainer.style.display = 'flex';
             if (homeTimer) homeTimer.classList.add('hidden');
             return;
@@ -412,7 +420,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // If full energy, show "Full"
         if (energyManager.data.energy >= energyManager.maxEnergy) {
-            timerDisplay.textContent = "Plein ⚡";
+            timerDisplay.textContent = translations[currentLang].full;
             if (timerContainer) timerContainer.style.display = 'flex';
             return;
         }
@@ -426,7 +434,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Trigger regen check
             energyManager.calcRegen();
             updateEnergyUI();
-            if (timerDisplay) timerDisplay.textContent = "Plein ⚡";
+            if (timerDisplay) timerDisplay.textContent = translations[currentLang].full;
             if (homeTimer) homeTimer.classList.add('hidden');
             return;
         }
@@ -532,10 +540,10 @@ document.addEventListener('DOMContentLoaded', () => {
             // Simulate Success
             if (productId === 'energy_refill_50') {
                 energyManager.addEnergy(50);
-                alert(t.purchaseRefill);
+                showPurchaseSuccess(t.productRefillTitle, t.purchaseRefill);
             } else if (productId === 'premium_unlock_lifetime') {
                 energyManager.unlockPremium();
-                alert(t.purchasePremium);
+                showPurchaseSuccess(t.productPremiumTitle, t.purchasePremium);
             }
 
             // Refresh UI
@@ -548,6 +556,44 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.disabled = false;
         });
     });
+
+    // --- Purchase Success Modal ---
+    const purchaseSuccessModal = document.getElementById('purchase-success-modal');
+    const purchaseSuccessTitle = document.getElementById('purchase-success-title');
+    const purchaseSuccessMessage = document.getElementById('purchase-success-message');
+    const purchaseSuccessOk = document.getElementById('purchase-success-ok');
+
+    function showPurchaseSuccess(title, message) {
+        if (purchaseSuccessTitle) purchaseSuccessTitle.textContent = title;
+        if (purchaseSuccessMessage) purchaseSuccessMessage.textContent = message;
+
+        // i18n for the button
+        if (purchaseSuccessOk) {
+            purchaseSuccessOk.textContent = currentLang === 'fr' ? 'Super !' : currentLang === 'es' ? '¡Genial!' : 'Awesome!';
+        }
+
+        if (purchaseSuccessModal) {
+            purchaseSuccessModal.classList.remove('hidden');
+        }
+    }
+
+    function closePurchaseSuccess() {
+        if (purchaseSuccessModal) {
+            purchaseSuccessModal.classList.add('hidden');
+        }
+    }
+
+    if (purchaseSuccessOk) {
+        purchaseSuccessOk.addEventListener('click', closePurchaseSuccess);
+    }
+
+    if (purchaseSuccessModal) {
+        purchaseSuccessModal.addEventListener('click', (e) => {
+            if (e.target === purchaseSuccessModal) {
+                closePurchaseSuccess();
+            }
+        });
+    }
 
 
     // --- Core Logic ---
@@ -604,6 +650,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         switchEl.classList.remove('active-YES', 'active-NO');
         input.value = '';
+        input.style.height = 'auto';
         isProcessing = false;
         updateUIState();
     }

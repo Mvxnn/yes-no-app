@@ -1,0 +1,13 @@
+# Ignore les dossiers lourds (ce qui a fait planter ton git)
+node_modules/
+
+# Ignore toute la partie Android (ton collègue ne la verra pas)
+android/
+
+# Ignore les fichiers de config mobile
+capacitor.config.json
+capacitor.config.ts
+
+# Ignore les fichiers système Mac/Windows inutiles
+.DS_Store
+Thumbs.db

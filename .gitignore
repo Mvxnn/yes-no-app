@@ -1,0 +1,6 @@
+﻿node_modules/
+android/
+capacitor.config.json
+capacitor.config.ts
+.DS_Store
+Thumbs.db

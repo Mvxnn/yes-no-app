@@ -14,7 +14,7 @@
 
 <body>
 
-    <!-- Header Logo -->
+    <!-- Header -->
     <header id="top-bar">
         <div class="header-left">
             <button id="shop-btn" aria-label="Boutique">
@@ -27,21 +27,6 @@
                     <span id="home-regen-timer" class="hidden">--:--</span>
                 </div>
             </button> <!-- Shop Trigger -->
-        </div> <!-- Spacer -->
-        <div class="logo">
-            <svg width="40" height="40" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg"
-                style="pointer-events: none;">
-                <rect width="54" height="54" rx="5" fill="#333333" />
-                <path
-                    d="M16.0279 38.7334C15.5826 38.7334 15.1856 38.6963 14.8368 38.622C14.488 38.5553 14.2468 38.4885 14.1132 38.4217L14.7811 36.1062C15.4193 36.2695 15.9834 36.3289 16.4732 36.2843C16.963 36.2398 17.3971 36.0209 17.7756 35.6275C18.1615 35.2416 18.514 34.6145 18.8332 33.7462L19.323 32.4104L13 15.2226H15.8498L20.5697 28.8482H20.7479L25.4678 15.2226H28.3176L21.0595 34.8149C20.733 35.698 20.3285 36.429 19.8462 37.0079C19.3638 37.5942 18.8035 38.0283 18.1652 38.3104C17.5344 38.5924 16.822 38.7334 16.0279 38.7334Z"
-                    fill="white" />
-                <path
-                    d="M31.0495 22.0354V32.3214H28.4224V15.2226H30.9605V17.8943H31.1831C31.5838 17.026 32.1924 16.3284 33.0087 15.8015C33.8251 15.2672 34.8789 15 36.1702 15C37.3279 15 38.341 15.2375 39.2092 15.7124C40.0775 16.18 40.7529 16.8924 41.2353 17.8498C41.7177 18.7997 41.9588 20.002 41.9588 21.4565V32.3214H39.3317V21.6347C39.3317 20.2914 38.9829 19.245 38.2853 18.4954C37.5877 17.7385 36.6303 17.36 35.4132 17.36C34.5746 17.36 33.8251 17.5418 33.1646 17.9054C32.5115 18.2691 31.9957 18.7997 31.6172 19.4973C31.2388 20.1949 31.0495 21.041 31.0495 22.0354Z"
-                    fill="white" />
-                <path
-                    d="M41.4382 37.8904C41.1269 37.4735 39.3075 36.0098 29.1028 36C29.0475 36 29 36.0448 29 36.1V37.99C29 37.9955 29.0045 38 29.01 38H41.3719C41.437 38 41.4771 37.9425 41.4382 37.8904Z"
-                    fill="white" stroke="white" />
-            </svg>
         </div>
         <div class="header-right">
             <button id="lang-btn" aria-label="Changer de langue">
@@ -72,7 +57,8 @@
         <!-- Zone de Saisie Centrale -->
         <div id="center-stage">
             <div class="input-container">
-                <input type="text" id="question-input" placeholder="Posez votre question..." autocomplete="off">
+                <textarea id="question-input" placeholder="Posez votre question..." autocomplete="off"
+                    rows="1"></textarea>
                 <button id="explicit-send-btn" aria-label="Ask Oracle">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2"
@@ -218,6 +204,28 @@
             <div class="energy-alert-actions">
                 <button id="energy-alert-cancel" class="energy-btn energy-btn-secondary">Annuler</button>
                 <button id="energy-alert-confirm" class="energy-btn energy-btn-primary">Ouvrir la boutique</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Achat Réussi -->
+    <div id="purchase-success-modal" class="hidden" aria-hidden="true">
+        <div class="modal-content purchase-success-content">
+            <div class="purchase-success-header">
+                <div class="success-checkmark">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" class="success-icon">
+                        <circle cx="12" cy="12" r="10" stroke="#34C759" stroke-width="2" fill="rgba(52,199,89,0.15)" />
+                        <path d="M8 12.5L11 15.5L16 9" stroke="#34C759" stroke-width="2.5" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </div>
+            </div>
+            <div class="purchase-success-body">
+                <h3 id="purchase-success-title">Achat réussi !</h3>
+                <p id="purchase-success-message">Votre achat a bien été effectué.</p>
+            </div>
+            <div class="purchase-success-actions">
+                <button id="purchase-success-ok" class="energy-btn energy-btn-success">Super !</button>
             </div>
         </div>
     </div>
